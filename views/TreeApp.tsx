@@ -8,6 +8,7 @@ const TreeApp = () => {
     const logout = async () => {
         console.log("logout");
         const response = await supabase.auth.signOut();
+        console.log(response);
     }
     return (
             <SafeAreaView style={styles.safe} edges={['top']}>
