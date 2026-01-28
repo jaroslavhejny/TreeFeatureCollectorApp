@@ -1,53 +1,33 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import TreeApp from "./views/TreeApp";
+import LoginPage from "./views/LoginPage";
+import {supabase} from "./lib/supabase";
 
 export default function App() {
-    const [count, setCount] = useState(0);
+    const [isAuth, setIsAuth] = useState(false);
+    useEffect(() => {
+        supabase.auth.getSession().then(({data}) => {
+            setIsAuth(!!data.session);
+        })
+
+        const {data: subscription} = supabase.auth.onAuthStateChange((_, session)=>{
+            setIsAuth(!!session);
+        })
+
+        return () => subscription.subscription.unsubscribe();
+    }, [])
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.count, count >= 5 && styles.highlight]}>
-                {count}
-            </Text>
-
-            <TouchableOpacity
-                style={styles.button}
-                onLongPress={() => setCount(count + 10)}
-
-                onPress={() => setCount(c => c + 1)}
-            >
-                <Text style={styles.buttonText}>+1</Text>
-            </TouchableOpacity>
-
-            <StatusBar style="auto" />
+            {isAuth ? <TreeApp /> : <LoginPage />}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'pink'
-    },
-    count: {
-        fontSize: 48,
-        marginBottom: 20,
-    },
-    highlight: {
-        color: 'tomato',
-        fontWeight: '700',
-    },
-    button: {
-        backgroundColor: '#222',
-        paddingHorizontal: 24,
-        paddingVertical: 12,
-        borderRadius: 8,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 18,
+        flex: 1
     },
 });

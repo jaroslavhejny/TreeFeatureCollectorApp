@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CleanExpo",
-    "slug": "CleanExpo",
+    "name": "Tree Feature Collector",
+    "slug": "tree_feature_collector",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
