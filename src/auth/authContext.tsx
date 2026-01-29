@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react"
-import { apiLogin, apiLogout } from "../api/client"
-import { clearTokens, loadTokens, saveTokens } from "./tokenStore"
+import React, {createContext, useContext, useEffect, useMemo, useState} from "react"
+import {apiLogin, apiLogout} from "../api/client"
+import {clearTokens, loadTokens, saveTokens} from "./tokenStore"
 
 type AuthState = {
     isAuth: boolean
@@ -11,7 +11,7 @@ type AuthState = {
 
 const AuthContext = createContext<AuthState>(null as any)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export const AuthProvider = ({children}: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true)
     const [accessToken, setAccessToken] = useState<string | null>(null)
     const [refreshToken, setRefreshToken] = useState<string | null>(null)
@@ -31,8 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             await saveTokens(res.access_token, res.refresh_token)
             setAccessToken(res.access_token)
             setRefreshToken(res.refresh_token)
-        }
-        catch (e) {
+        } catch (e) {
             console.error('login error', e);
         }
 
@@ -60,6 +59,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-export function useAuth() {
+export const useAuth = () => {
     return useContext(AuthContext)
 }

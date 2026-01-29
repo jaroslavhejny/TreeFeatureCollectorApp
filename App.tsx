@@ -4,17 +4,19 @@ import { AuthProvider, useAuth } from "./src/auth/authContext"
 import TreeApp from "./views/TreeApp"
 import LoginPage from "./views/LoginPage"
 
-function Root() {
+const Root = ()=> {
     const { isAuth, loading } = useAuth()
     if (loading) return null
 
     return <View style={{ flex: 1 }}>{isAuth ? <TreeApp /> : <LoginPage />}</View>
 }
 
-export default function App() {
+const App = () => {
     return (
         <AuthProvider>
             <Root />
         </AuthProvider>
     )
 }
+
+export default App

@@ -1,8 +1,9 @@
 import React, { useState } from "react"
-import { Button, StyleSheet, Text, TextInput, View } from "react-native"
+import { StyleSheet, Text, TextInput, View } from "react-native"
 import { useAuth } from "../src/auth/authContext"
+import AppButton from "../src/components/Button";
 
-export default function LoginPage() {
+const LoginPage = ()=> {
     const { login } = useAuth()
     const [email, setEmail] = useState("user1@test.com")
     const [password, setPassword] = useState("heslo")
@@ -46,7 +47,7 @@ export default function LoginPage() {
 
                 {error ? <Text style={styles.error}>{error}</Text> : null}
 
-                <Button title={loading ? "Logging in..." : "Login"} onPress={onSubmit} disabled={loading} />
+                <AppButton title={loading ? "Logging in..." : "Login"} onPress={onSubmit} disabled={loading} />
             </View>
 
             <View style={{ flex: 1 }} />
@@ -61,3 +62,5 @@ const styles = StyleSheet.create({
     input: { width: "100%", fontSize: 18, padding: 10, borderWidth: 1, borderRadius: 8 },
     error: { marginTop: 4 },
 })
+
+export default LoginPage

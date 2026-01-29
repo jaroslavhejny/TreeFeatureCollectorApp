@@ -9,7 +9,7 @@ type LoginResponse = {
     user?: any
 }
 
-export async function apiLogin(email: string, password: string): Promise<LoginResponse> {
+export const apiLogin = async (email: string, password: string): Promise<LoginResponse> => {
     const r = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -21,7 +21,7 @@ export async function apiLogin(email: string, password: string): Promise<LoginRe
     return data as LoginResponse
 }
 
-export async function apiLogout(access_token: string, refresh_token: string): Promise<void> {
+export const apiLogout = async (access_token: string, refresh_token: string): Promise<void> => {
     const r = await fetch(`${API_URL}/auth/logout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
