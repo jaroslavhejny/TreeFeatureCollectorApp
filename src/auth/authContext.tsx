@@ -17,7 +17,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [refreshToken, setRefreshToken] = useState<string | null>(null)
 
     useEffect(() => {
-        ;(async () => {
+        (async () => {
             const t = await loadTokens()
             setAccessToken(t.access_token)
             setRefreshToken(t.refresh_token)
@@ -26,10 +26,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, [])
 
     const login = async (email: string, password: string) => {
-        const res = await apiLogin(email, password)
-        await saveTokens(res.access_token, res.refresh_token)
-        setAccessToken(res.access_token)
-        setRefreshToken(res.refresh_token)
+        try {
+            const res = await apiLogin(email, password)
+            await saveTokens(res.access_token, res.refresh_token)
+            setAccessToken(res.access_token)
+            setRefreshToken(res.refresh_token)
+        }
+        catch (e) {
+            console.error('login error', e);
+        }
+
     }
 
     const logout = async () => {

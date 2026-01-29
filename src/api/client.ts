@@ -1,5 +1,5 @@
 const PORT = 1208;
-const LAN_ADDRESS = '10.0.1.45:1208'
+const LAN_ADDRESS = 'http://10.0.1.45'
 const API_URL =`${LAN_ADDRESS}:${PORT}`
 
 type LoginResponse = {
@@ -15,7 +15,6 @@ export async function apiLogin(email: string, password: string): Promise<LoginRe
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
     })
-
     const data = await r.json().catch(() => ({}))
 
     if (!r.ok) throw new Error(data?.error ?? "Login failed")
