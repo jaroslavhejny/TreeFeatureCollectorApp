@@ -8,7 +8,7 @@ import AppButton from "../src/components/Button";
 
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <AppButton title="Logout" onPress={logout} />
+            <AppButton title="Logout" onPress={logout} size={'small'}/>
             <Text>TreeApp</Text>
         </View>
     )

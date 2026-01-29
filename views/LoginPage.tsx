@@ -24,7 +24,7 @@ const LoginPage = ()=> {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Přihlášení</Text>
+            <Text style={styles.title}>Login</Text>
 
             <View style={{ flex: 1 }} />
 
