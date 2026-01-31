@@ -1,6 +1,6 @@
-import React, {createContext, useContext, useEffect, useMemo, useState} from "react"
-import {apiLogin, apiLogout} from "../api/client"
-import {clearTokens, loadTokens, saveTokens} from "./tokenStore"
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react"
+import {clearTokens, loadTokens, saveTokens} from "./tokenStore";
+import {apiLogin, apiLogout} from "../api/client";
 
 type AuthState = {
     isAuth: boolean
@@ -9,15 +9,15 @@ type AuthState = {
     logout: () => Promise<void>
 }
 
-const AuthContext = createContext<AuthState>(null as any)
+const AuthContext = createContext<AuthState | undefined>(undefined)
 
-export const AuthProvider = ({children}: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true)
     const [accessToken, setAccessToken] = useState<string | null>(null)
     const [refreshToken, setRefreshToken] = useState<string | null>(null)
 
     useEffect(() => {
-        (async () => {
+        ;(async () => {
             const t = await loadTokens()
             setAccessToken(t.access_token)
             setRefreshToken(t.refresh_token)
@@ -26,22 +26,15 @@ export const AuthProvider = ({children}: { children: React.ReactNode }) => {
     }, [])
 
     const login = async (email: string, password: string) => {
-        try {
-            const res = await apiLogin(email, password)
-            await saveTokens(res.access_token, res.refresh_token)
-            setAccessToken(res.access_token)
-            setRefreshToken(res.refresh_token)
-        } catch (e) {
-            console.error('login error', e);
-        }
-
+        const res = await apiLogin(email, password)
+        await saveTokens(res.access_token, res.refresh_token)
+        setAccessToken(res.access_token)
+        setRefreshToken(res.refresh_token)
     }
 
     const logout = async () => {
         try {
-            if (accessToken && refreshToken) {
-                await apiLogout(accessToken, refreshToken)
-            }
+            if (accessToken && refreshToken) await apiLogout(accessToken, refreshToken)
         } finally {
             await clearTokens()
             setAccessToken(null)
@@ -49,16 +42,16 @@ export const AuthProvider = ({children}: { children: React.ReactNode }) => {
         }
     }
 
-    const value = useMemo<AuthState>(() => ({
-        isAuth: !!accessToken,
-        loading,
-        login,
-        logout,
-    }), [accessToken, loading])
+    const value = useMemo<AuthState>(
+        () => ({ isAuth: !!accessToken, loading, login, logout }),
+        [accessToken, loading]
+    )
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {
-    return useContext(AuthContext)
+    const ctx = useContext(AuthContext)
+    if (!ctx) throw new Error("useAuth must be used within <AuthProvider>")
+    return ctx
 }

@@ -1,17 +1,39 @@
 import React from "react"
-import { Text, View } from "react-native"
-import { useAuth } from "../src/auth/authContext"
-import AppButton from "../src/components/Button";
+import {View, StyleSheet, Text} from "react-native"
+import {SafeAreaView} from "react-native-safe-area-context"
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
+import {NavigationContainer} from "@react-navigation/native"
 
- const TreeApp = () => {
-    const { logout } = useAuth()
+import ListImages from "./ListImages"
+import TakePhoto from "./TakePhoto"
+import Profile from "./Profile";
+
+const Tab = createBottomTabNavigator()
+
+export default function TreeApp() {
 
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <AppButton title="Logout" onPress={logout} size={'small'}/>
-            <Text>TreeApp</Text>
-        </View>
+        <SafeAreaView style={styles.safe}>
+            <View style={styles.body}>
+                <NavigationContainer>
+                    <Tab.Navigator>
+                        <Tab.Screen name="Seznam" component={ListImages}/>
+                        <Tab.Screen name="Foto" component={TakePhoto}/>
+                        <Tab.Screen name="Profile" component={Profile}/>
+                    </Tab.Navigator>
+                </NavigationContainer>
+            </View>
+        </SafeAreaView>
     )
 }
 
-export default TreeApp;
+const styles = StyleSheet.create({
+    safe: {flex: 1},
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        paddingBottom: 8,
+    },
+    body: {flex: 1},
+})

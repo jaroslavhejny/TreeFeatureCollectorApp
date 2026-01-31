@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { StyleSheet, Text, TextInput, View } from "react-native"
 import { useAuth } from "../src/auth/authContext"
-import AppButton from "../src/components/Button";
+import AppButton from "../src/components/AppButton";
 
 const LoginPage = ()=> {
     const { login } = useAuth()
