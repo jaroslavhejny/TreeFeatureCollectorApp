@@ -26,7 +26,10 @@ export async function uploadImage(params: {
 
     const text = await r.text();
     let data: any = {};
-    try { data = text ? JSON.parse(text) : {}; } catch {}
+    try {
+        data = text ? JSON.parse(text) : {};
+    } catch {
+    }
 
     if (!r.ok) throw new Error(data?.error ?? `HTTP ${r.status}`);
     return data;

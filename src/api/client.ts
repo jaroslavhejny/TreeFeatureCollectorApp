@@ -1,6 +1,4 @@
-const PORT = 1208;
-const LAN_ADDRESS = 'http://10.0.1.45'
-export const API_URL =`${LAN_ADDRESS}:${PORT}`
+export const API_URL = process.env.EXPO_PUBLIC_API_URL!;
 
 type LoginResponse = {
     access_token: string
@@ -10,6 +8,7 @@ type LoginResponse = {
 }
 
 export const apiLogin = async (email: string, password: string): Promise<LoginResponse> => {
+    console.log(API_URL);
     const r = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

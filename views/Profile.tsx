@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text } from "react-native"
+import { View } from "react-native"
 import AppButton from "../src/components/AppButton";
 import {useAuth} from "../src/auth/authContext";
 

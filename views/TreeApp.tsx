@@ -17,8 +17,8 @@ export default function TreeApp() {
             <View style={styles.body}>
                 <NavigationContainer>
                     <Tab.Navigator>
-                        <Tab.Screen name="Gallery" component={ListStack}/>
-                        <Tab.Screen name="Photo" component={TakePhoto}/>
+                        <Tab.Screen name="Photos" component={ListStack}/>
+                        <Tab.Screen name="Take Photo" component={TakePhoto}/>
                         <Tab.Screen name="Profile" component={Profile}/>
                     </Tab.Navigator>
                 </NavigationContainer>
