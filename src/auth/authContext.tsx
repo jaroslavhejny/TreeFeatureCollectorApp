@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react"
+import React, {createContext, useContext, useEffect, useMemo, useState} from "react"
 import {clearTokens, loadTokens, saveTokens} from "./tokenStore";
 import {apiLogin, apiLogout} from "../api/client";
 
@@ -11,18 +11,19 @@ type AuthState = {
 
 const AuthContext = createContext<AuthState | undefined>(undefined)
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({children}: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true)
     const [accessToken, setAccessToken] = useState<string | null>(null)
     const [refreshToken, setRefreshToken] = useState<string | null>(null)
 
     useEffect(() => {
-        ;(async () => {
+        const auth = async () => {
             const t = await loadTokens()
             setAccessToken(t.access_token)
             setRefreshToken(t.refresh_token)
             setLoading(false)
-        })()
+        }
+        auth();
     }, [])
 
     const login = async (email: string, password: string) => {
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const value = useMemo<AuthState>(
-        () => ({ isAuth: !!accessToken, loading, login, logout }),
+        () => ({isAuth: !!accessToken, loading, login, logout}),
         [accessToken, loading]
     )
 
