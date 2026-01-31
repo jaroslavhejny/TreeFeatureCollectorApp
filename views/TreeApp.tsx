@@ -1,12 +1,12 @@
 import React from "react"
-import {View, StyleSheet, Text} from "react-native"
+import {View, StyleSheet} from "react-native"
 import {SafeAreaView} from "react-native-safe-area-context"
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
 import {NavigationContainer} from "@react-navigation/native"
 
-import ListImages from "./ListImages"
 import TakePhoto from "./TakePhoto"
 import Profile from "./Profile";
+import ListStack from "./ListStack";
 
 const Tab = createBottomTabNavigator()
 
@@ -17,7 +17,7 @@ export default function TreeApp() {
             <View style={styles.body}>
                 <NavigationContainer>
                     <Tab.Navigator>
-                        <Tab.Screen name="Seznam" component={ListImages}/>
+                        <Tab.Screen name="Seznam" component={ListStack}/>
                         <Tab.Screen name="Foto" component={TakePhoto}/>
                         <Tab.Screen name="Profile" component={Profile}/>
                     </Tab.Navigator>
