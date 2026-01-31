@@ -17,8 +17,8 @@ export default function TreeApp() {
             <View style={styles.body}>
                 <NavigationContainer>
                     <Tab.Navigator>
-                        <Tab.Screen name="Seznam" component={ListStack}/>
-                        <Tab.Screen name="Foto" component={TakePhoto}/>
+                        <Tab.Screen name="Gallery" component={ListStack}/>
+                        <Tab.Screen name="Photo" component={TakePhoto}/>
                         <Tab.Screen name="Profile" component={Profile}/>
                     </Tab.Navigator>
                 </NavigationContainer>
@@ -29,11 +29,5 @@ export default function TreeApp() {
 
 const styles = StyleSheet.create({
     safe: {flex: 1},
-    header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingHorizontal: 16,
-        paddingBottom: 8,
-    },
     body: {flex: 1},
 })

@@ -44,6 +44,13 @@ export default function ListImages({ navigation }: any) {
             contentContainerStyle={{ padding: 8 }}
             columnWrapperStyle={{ gap: 8 }}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            ListEmptyComponent={
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 24 }}>
+                    <Text style={{ opacity: 0.7, textAlign: "center" }}>
+                        No images found.
+                    </Text>
+                </View>
+            }
             renderItem={({ item }) => (
                 <Pressable
                     style={{ flex: 1, aspectRatio: 1, marginBottom: 8 }}

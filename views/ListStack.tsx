@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export default function ListStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Gallery" component={ListImages} options={{ title: "Seznam" }} />
+            <Stack.Screen name="Gallery" component={ListImages} options={{ title: "All photos" }} />
             <Stack.Screen name="ImageDetail" component={ImageDetail} options={{ title: "Detail" }} />
         </Stack.Navigator>
     );
