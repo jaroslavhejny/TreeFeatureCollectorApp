@@ -8,7 +8,6 @@ type LoginResponse = {
 }
 
 export const apiLogin = async (email: string, password: string): Promise<LoginResponse> => {
-    console.log(API_URL);
     const r = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

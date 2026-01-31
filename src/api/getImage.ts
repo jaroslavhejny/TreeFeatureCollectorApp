@@ -14,19 +14,19 @@ async function parseJson(r: Response) {
 }
 
 export async function apiGetImages(accessToken: string): Promise<ImageRow[]> {
-    const r = await fetch(`${API_URL}/images`, {
+    const response = await fetch(`${API_URL}/images`, {
         headers: { Authorization: `Bearer ${accessToken}` },
     });
-    const data = await parseJson(r);
-    if (!r.ok) throw new Error(data?.error ?? `HTTP ${r.status}`);
+    const data = await parseJson(response);
+    if (!response.ok) throw new Error(data?.error ?? `HTTP ${response.status}`);
     return data as ImageRow[];
 }
 
 export async function apiGetImageDetail(accessToken: string, id: string): Promise<ImageRow> {
-    const r = await fetch(`${API_URL}/images/${id}`, {
+    const response = await fetch(`${API_URL}/images/${id}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
     });
-    const data = await parseJson(r);
-    if (!r.ok) throw new Error(data?.error ?? `HTTP ${r.status}`);
+    const data = await parseJson(response);
+    if (!response.ok) throw new Error(data?.error ?? `HTTP ${response.status}`);
     return data as ImageRow;
 }
