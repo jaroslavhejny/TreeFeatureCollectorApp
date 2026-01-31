@@ -28,7 +28,7 @@ export default function ImageDetail({route}: any) {
         <ScrollView contentContainerStyle={{padding: 16, gap: 12}}>
             <Image source={{uri: item.imageUrl}} style={{width: "100%", height: 360, borderRadius: 12}}/>
             <Text style={{fontSize: 18, fontWeight: "600"}}>Severity: {item.severity}</Text>
-            <Text style={{fontSize: 16}}>{item.description || "— bez popisu —"}</Text>
+            <Text style={{fontSize: 16}}>{item.description || "no description"}</Text>
             <Text style={{opacity: 0.7}}>{new Date(item.created_at).toLocaleString()}</Text>
         </ScrollView>
     );
