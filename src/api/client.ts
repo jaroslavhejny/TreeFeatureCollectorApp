@@ -1,6 +1,6 @@
 const PORT = 1208;
 const LAN_ADDRESS = 'http://10.0.1.45'
-const API_URL =`${LAN_ADDRESS}:${PORT}`
+export const API_URL =`${LAN_ADDRESS}:${PORT}`
 
 type LoginResponse = {
     access_token: string
@@ -27,6 +27,7 @@ export const apiLogout = async (access_token: string, refresh_token: string): Pr
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ access_token, refresh_token }),
     })
+
 
     if (!r.ok && r.status !== 204) {
         const data = await r.json().catch(() => ({}))
